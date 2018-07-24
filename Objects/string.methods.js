@@ -12,11 +12,7 @@ console.log(name.trim())
 
 // Challenge
 let isValidPassword = function (p) {
-    if (p.length > 8 && !p.toLowerCase().includes('password')) {
-        return true
-    } else {
-        return false
-    }
+    return (p.length > 8 && !p.toLowerCase().includes('password'))
 }
 
 console.log(isValidPassword('yqewtd'))
