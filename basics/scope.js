@@ -1,9 +1,13 @@
-let varOne = 'varOne'
+let name = "jorge"
 
-if(true){
-    console.log(varOne)
-    let varTwo = 'varTwo'
-    console.log(varTwo)
+if (true) {
+    let name = "rivera"
+    if (true) {
+        name = "alberto"
+        console.log(name)
+    }
 }
 
-console.log(varTwo)
+if (true) {
+    console.log(name)
+}
