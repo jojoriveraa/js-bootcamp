@@ -21,16 +21,23 @@ let printTodos = function (todosArray = todos) {
     })
 }
 
-let deleteTodo = function (todosArray = todos, title) {
-    let index = todosArray.findIndex(function (todo) {
+let deleteTodo = function (array = todos, title) {
+    let index = array.findIndex(function (todo) {
         return todo.title.toLowerCase() === title.toLowerCase()
     })
     if (index === -1) {
         console.log(`The specified title: "${title}" could not be found`)
     }
-    todosArray.splice(index,1)
+    array.splice(index,1)
 }
 
+let getThingsTodo = function(array){
+    return array.filter(function(todo){
+        return !todo.completed
+    })
+}
+
+console.log(getThingsTodo(todos))
 printTodos()
 deleteTodo (todos, 'todo 5')
 deleteTodo (todos, 'todo 7')
