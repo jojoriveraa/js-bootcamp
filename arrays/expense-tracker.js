@@ -32,7 +32,7 @@ const account = {
         })
         return total
     },
-    getAccountSummary: function(){
+    getAccountSummary: function () {
         let expenses = this.getExpensesSummary()
         let incomes = this.getIncomesSummary()
         let balance = incomes - expenses
@@ -40,8 +40,6 @@ const account = {
 
     }
 }
-
-
 
 account.addExpense('Rent', 950)
 account.addExpense('Coffe', 2)
