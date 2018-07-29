@@ -37,7 +37,6 @@ const account = {
         let incomes = this.getIncomesSummary()
         let balance = incomes - expenses
         return `${this.name} has a balance of $${balance}. $${incomes} in incomes. $${expenses} in exenses`
-
     }
 }
 
