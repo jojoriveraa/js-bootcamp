@@ -33,6 +33,6 @@ document.querySelector('body').appendChild(summary)
 
 showTodos()
 
-document.querySelector('button').addEventListener('click', function(e){
+document.querySelector('#add-todo-btn').addEventListener('click', function(e){
     console.log('add new todo')
 })

@@ -9,8 +9,12 @@ const notes = [{
     body: 'I would like a hot dog witk coke'
 }]
 
-document.querySelector('button').addEventListener('click', function(e) {
-    console.log('click')
-    console.log(e)
-    e.target.textContent = 'I was clicked'
+document.querySelector('button#create-btn').addEventListener('click', function (e) {
+    e.target.textContent = 'Adding a note'
+})
+
+document.querySelector('button#delete-btn').addEventListener('click', function (e) {
+    document.querySelectorAll('.note').forEach(function (note) {
+        note.remove()
+    })
 })
