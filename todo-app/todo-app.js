@@ -15,11 +15,20 @@ let todos = [{
     completed: true
 }]
 
-const paragraphs = document.querySelectorAll('p')
-console.log(paragraphs)
-
-paragraphs.forEach(function (todo) {
-    if (todo.textContent.toLowerCase().includes('the')) {
-        todo.remove()
-    }
+let incompleteTodos = todos.filter(function(todo){
+    return !todo.completed
 })
+
+let showTodos = function () {
+    todos.forEach(function (todo) {
+        let paragraph = document.createElement('p')
+        paragraph.textContent = todo.title
+        document.querySelector('body').appendChild(paragraph)
+    })
+}
+
+let summary = document.createElement('h2')
+summary.textContent = `You have ${incompleteTodos.length} todos left.`
+document.querySelector('body').appendChild(summary)
+
+showTodos()
