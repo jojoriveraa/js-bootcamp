@@ -9,18 +9,8 @@ const notes = [{
     body: 'I would like a hot dog witk coke'
 }]
 
-// Query and remove
-const p = document.querySelector('p')
-p.remove()
-
-// Query all and remove
-const ps = document.querySelectorAll('p')
-ps.forEach(function (p) {
-    p.textContent = '*****'
-    //p.remove()
+document.querySelector('button').addEventListener('click', function(e) {
+    console.log('click')
+    console.log(e)
+    e.target.textContent = 'I was clicked'
 })
-
-//Add a new element
-const newParagraph = document.createElement('p')
-newParagraph.textContent = 'This is a new element from JS'
-document.querySelector('body').appendChild(newParagraph)

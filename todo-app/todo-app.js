@@ -32,3 +32,7 @@ summary.textContent = `You have ${incompleteTodos.length} todos left.`
 document.querySelector('body').appendChild(summary)
 
 showTodos()
+
+document.querySelector('button').addEventListener('click', function(e){
+    console.log('add new todo')
+})
