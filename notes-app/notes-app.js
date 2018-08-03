@@ -18,3 +18,7 @@ document.querySelector('button#delete-btn').addEventListener('click', function (
         note.remove()
     })
 })
+
+document.querySelector('#search-txt').addEventListener('input', function(e){
+    console.log(e.target.value)
+})
