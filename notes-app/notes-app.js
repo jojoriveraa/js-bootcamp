@@ -29,17 +29,15 @@ const renderNotes = function (notes, filters) {
 
 renderNotes(notes, filters)
 
-document.querySelector('button#create-btn').addEventListener('click', function (e) {
+document.querySelector('button#create-note').addEventListener('click', function (e) {
     e.target.textContent = 'Adding a note'
 })
 
-document.querySelector('button#delete-btn').addEventListener('click', function (e) {
-    document.querySelectorAll('.note').forEach(function (note) {
-        note.remove()
-    })
-})
-
-document.querySelector('#search-txt').addEventListener('input', function (e) {
+document.querySelector('#search-text').addEventListener('input', function (e) {
     filters.searchText = e.target.value
     renderNotes(notes, filters)
+})
+
+document.querySelector('#for-fun').addEventListener('change', function (e) {
+    console.log(e.target.checked)
 })
