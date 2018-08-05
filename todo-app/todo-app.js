@@ -15,24 +15,46 @@ let todos = [{
     completed: true
 }]
 
-let incompleteTodos = todos.filter(function(todo){
-    return !todo.completed
-})
+const filters = {
+    searchText: ''
+}
 
-let showTodos = function () {
-    todos.forEach(function (todo) {
-        let paragraph = document.createElement('p')
-        paragraph.textContent = todo.title
-        document.querySelector('body').appendChild(paragraph)
+const countIncompleteTodos = function (todos) {
+    return todos.filter(function (todo) {
+        return !todo.completed
     })
 }
 
-let summary = document.createElement('h2')
-summary.textContent = `You have ${incompleteTodos.length} todos left.`
-document.querySelector('body').appendChild(summary)
+const renderTodos = function (todos, filters) {
 
-showTodos()
+    const filteredTodos = todos.filter(function (todo) {
+        return todo.title.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
 
-document.querySelector('#add-todo-btn').addEventListener('click', function(e){
+    document.querySelector('#todos').innerHTML = ''
+
+    const summary = document.createElement('h2')
+    summary.textContent = `Filtered todos ${countIncompleteTodos(filteredTodos).length} todos left.`
+    document.querySelector('#todos').appendChild(summary)
+
+    filteredTodos.forEach(function (element) {
+        let paragraph = document.createElement('p')
+        paragraph.textContent = element.title + ' --> ' + ((element.completed) ? 'completed' : 'pending')
+        document.querySelector('#todos').appendChild(paragraph)
+    })
+}
+
+document.querySelector('#add-todo-btn').addEventListener('click', function (e) {
     console.log('add new todo')
 })
+
+document.querySelector('#new-todo-txt').addEventListener('input', function (e) {
+    console.log(e.target.value)
+})
+
+document.querySelector('#filter-text').addEventListener('input', function (e) {
+    filters.searchText = e.target.value
+    renderTodos(todos, filters)
+})
+
+renderTodos(todos, filters)
