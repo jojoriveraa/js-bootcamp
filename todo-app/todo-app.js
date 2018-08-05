@@ -34,27 +34,30 @@ const renderTodos = function (todos, filters) {
     document.querySelector('#todos').innerHTML = ''
 
     const summary = document.createElement('h2')
-    summary.textContent = `Filtered todos ${countIncompleteTodos(filteredTodos).length} todos left.`
+    summary.textContent = `You have ${countIncompleteTodos(filteredTodos).length} todos left.`
     document.querySelector('#todos').appendChild(summary)
 
     filteredTodos.forEach(function (element) {
         let paragraph = document.createElement('p')
-        paragraph.textContent = element.title + ' --> ' + ((element.completed) ? 'completed' : 'pending')
+        paragraph.textContent = element.title
         document.querySelector('#todos').appendChild(paragraph)
     })
 }
 
-document.querySelector('#add-todo-btn').addEventListener('click', function (e) {
-    console.log('add new todo')
-})
-
-document.querySelector('#new-todo-txt').addEventListener('input', function (e) {
-    console.log(e.target.value)
-})
-
 document.querySelector('#filter-text').addEventListener('input', function (e) {
     filters.searchText = e.target.value
     renderTodos(todos, filters)
+})
+
+document.querySelector('#addTodo').addEventListener('submit', function (e) {
+    e.preventDefault()
+    const newTodoText = e.target.todoTitle
+    todos.push({
+        title: newTodoText.value,
+        completed: false
+    })
+    renderTodos(todos, filters)
+    newTodoText.value = ''
 })
 
 renderTodos(todos, filters)
