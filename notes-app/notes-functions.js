@@ -36,6 +36,6 @@ const renderNotes = function (notes, filters) {
 }
 
 // Save the notesto local storage
-const saveNotes = function () {
+const saveNotes = function (notes) {
     localStorage.setItem('notes', JSON.stringify(notes))
 }

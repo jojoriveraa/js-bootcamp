@@ -9,7 +9,7 @@ document.querySelector('button#create-note').addEventListener('click', function 
         title: '',
         body: ''
     })
-    saveNotes();
+    saveNotes(notes);
     renderNotes(notes, filters)
 })
 
