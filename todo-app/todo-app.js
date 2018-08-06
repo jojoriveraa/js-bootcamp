@@ -1,27 +1,12 @@
-let todos = [{
-    title: 'Clean the kitchen',
-    completed: true
-}, {
-    title: 'Book flights',
-    completed: false
-}, {
-    title: 'Research museums',
-    completed: false
-}, {
-    title: 'Walk the dog',
-    completed: false
-}, {
-    title: 'Finish this course',
-    completed: true
-}]
+let todos = []
 
 const filters = {
     searchText: '',
     hideCompleted: false
 }
 
-const countIncompleteTodos = function (todos) {
-    return todos.filter(function (todo) {
+const countIncompleteTodos = function (todosList) {
+    return todosList.filter(function (todo) {
         return !todo.completed
     })
 }
@@ -39,9 +24,14 @@ const renderTodos = function (todos, filters) {
     summary.textContent = `You have ${countIncompleteTodos(filteredTodos).length} todos left.`
     document.querySelector('#todos').appendChild(summary)
 
-    filteredTodos.forEach(function (element) {
+    filteredTodos.forEach(function (element, index) {
+        console.log(element)
         let paragraph = document.createElement('p')
-        paragraph.textContent = element.title
+        if (element.title.length > 0) {
+            paragraph.textContent = element.title
+        } else {
+            paragraph.textContent = `Unnamed todo (${index})`
+        }
         document.querySelector('#todos').appendChild(paragraph)
     })
 }
@@ -53,13 +43,14 @@ document.querySelector('#filter-text').addEventListener('input', function (e) {
 
 document.querySelector('#addTodo').addEventListener('submit', function (e) {
     e.preventDefault()
-    const newTodoText = e.target.todoTitle
+    console.log(e.target.todoTitle.value)
     todos.push({
-        title: newTodoText.value,
+        title: e.target.todoTitle.value,
         completed: false
     })
+    localStorage.setItem('todos', JSON.stringify(todos))
     renderTodos(todos, filters)
-    newTodoText.value = ''
+    e.target.todoTitle.value = ''
 })
 
 document.querySelector('#hide-completed').addEventListener('change', function (e) {
@@ -67,6 +58,12 @@ document.querySelector('#hide-completed').addEventListener('change', function (e
     renderTodos(todos, filters)
 })
 
+// Initialize form
 document.querySelector('#filter-text').value = ''
 document.querySelector('#hide-completed').checked = false
+
+// Initialize todos aray: check for existing data
+todos = JSON.parse(localStorage.getItem('todos'))
+
+// initialize todos list
 renderTodos(todos, filters)

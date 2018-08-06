@@ -21,7 +21,7 @@ const renderNotes = function (notes, filters) {
     filteredNotes.forEach(function (element, index) {
         const noteElement = document.createElement('p')
 
-        if (element.title > 0) {
+        if (element.title.length > 0) {
             noteElement.textContent = element.title
         } else {
             noteElement.textContent = `Unnamed note (${index})`
