@@ -1,28 +1,15 @@
-const notes = [{
-    title: 'Note 1',
-    body: 'I would like a pizza'
-}, {
-    title: 'Note 2',
-    body: 'I would like a burger with coke'
-}, {
-    title: 'Note 3',
-    body: 'I would like a hot dog witk coke'
-}]
+let notes = []
 
 const filters = {
     searchText: ''
 }
 
-// const user = {
-//     name: 'Jorge',
-//     age: 25
-// }
-// const userJSON = JSON.stringify(user)
-// console.log(userJSON)
-// localStorage.setItem('user', userJSON)
-const userJSON = localStorage.getItem('user')
-const user = JSON.parse(userJSON)
-console.log(`${user.name} is ${user.age}`)
+// Chack for existing saved data
+const notesJSON = localStorage.getItem('notes')
+
+if (notesJSON !== null) {
+    notes = JSON.parse(notesJSON)
+}
 
 const renderNotes = function (notes, filters) {
     const filteredNotes = notes.filter(function (element) {
@@ -31,9 +18,15 @@ const renderNotes = function (notes, filters) {
 
     document.querySelector('#notes').innerHTML = ''
 
-    filteredNotes.forEach(function (element) {
+    filteredNotes.forEach(function (element, index) {
         const noteElement = document.createElement('p')
-        noteElement.textContent = element.title
+
+        if (element.title > 0) {
+            noteElement.textContent = element.title
+        } else {
+            noteElement.textContent = `Unnamed note (${index})`
+        }
+
         document.querySelector('#notes').appendChild(noteElement)
     })
 }
@@ -41,7 +34,12 @@ const renderNotes = function (notes, filters) {
 renderNotes(notes, filters)
 
 document.querySelector('button#create-note').addEventListener('click', function (e) {
-    e.target.textContent = 'Adding a note'
+    notes.push({
+        title: '',
+        body: ''
+    })
+    localStorage.setItem('notes', JSON.stringify(notes))
+    renderNotes(notes, filters)
 })
 
 document.querySelector('#search-text').addEventListener('input', function (e) {
