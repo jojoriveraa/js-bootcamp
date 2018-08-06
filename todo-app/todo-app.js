@@ -63,7 +63,10 @@ document.querySelector('#filter-text').value = ''
 document.querySelector('#hide-completed').checked = false
 
 // Initialize todos aray: check for existing data
-todos = JSON.parse(localStorage.getItem('todos'))
+todosJSON = localStorage.getItem('todos')
+if (todosJSON !== null) {
+    todos = JSON.parse(todosJSON)
+}
 
 // initialize todos list
 renderTodos(todos, filters)
