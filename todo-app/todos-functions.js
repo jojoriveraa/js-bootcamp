@@ -35,14 +35,21 @@ const getFilteredTodos = function (todos, filters) {
 
 // Get the DOM elements for an individual note
 const generateTodoDOM = function (todo) {
-    let todoElement = document.createElement('p')
-    if (todo.title.length > 0) {
-        todoElement.textContent = todo.title
-    }
-    else {
-        todoElement.textContent = 'Unnamed todo'
-    }
-    return todoElement
+    const todoEl = document.createElement('div')
+    const todoCheckbox = document.createElement('input')
+    const todoText = document.createElement('span')
+    const removeButton = document.createElement('button')
+
+    todoCheckbox.setAttribute('type', 'checkbox')
+    todoEl.appendChild(todoCheckbox)
+
+    todoText.textContent = todo.title
+    todoEl.appendChild(todoText)
+
+    removeButton.textContent = 'x'
+    todoEl.appendChild(removeButton)
+
+    return todoEl
 }
 
 // Get the dom for list summary
