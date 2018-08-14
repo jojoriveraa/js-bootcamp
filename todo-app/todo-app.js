@@ -13,6 +13,7 @@ document.querySelector('#filter-text').addEventListener('input', function (e) {
 document.querySelector('#addTodo').addEventListener('submit', function (e) {
     e.preventDefault()
     todos.push({
+        id: uuidv4(),
         title: e.target.todoTitle.value,
         completed: false
     })
