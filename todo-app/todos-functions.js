@@ -33,10 +33,21 @@ const getFilteredTodos = function (todos, filters) {
     })
 }
 
+// Toggle the completed value for a given todo
+const toggleTodo = function (id) {
+    const todo = todos.find(function (todo) {
+        return todo.id === id
+    })
+    console.log(todo)
+    if (todo !== undefined) {
+        todo.completed = !todo.completed
+    }
+}
+
 // Remove a todo from the list
 const removeTodo = function (id) {
     const removeIndex = todos.findIndex(function (todo) {
-        return todo.id === id
+        return id === todo.id
     })
     if (removeIndex > -1) {
         todos.splice(removeIndex, 1)
@@ -45,27 +56,33 @@ const removeTodo = function (id) {
 
 // Get the DOM elements for an individual note
 const generateTodoDOM = function (todo) {
-    const todoEl = document.createElement('div')
-    const todoCheckbox = document.createElement('input')
-    const todoText = document.createElement('span')
-    const removeButton = document.createElement('button')
+    const body = document.createElement('div')
+    const checkbox = document.createElement('input')
+    const text = document.createElement('span')
+    const button = document.createElement('button')
 
-    todoCheckbox.setAttribute('type', 'checkbox')
-    todoEl.appendChild(todoCheckbox)
+    checkbox.setAttribute('type', 'checkbox')
+    checkbox.checked = todo.completed
+    checkbox.addEventListener('change', function () {
+        toggleTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
+    body.appendChild(checkbox)
 
-    todoText.textContent = todo.title
-    todoEl.appendChild(todoText)
+    text.textContent = todo.title
+    body.appendChild(text)
 
-    removeButton.textContent = 'x'
-    todoEl.appendChild(removeButton)
+    button.textContent = 'X'
+    body.appendChild(button)
 
-    removeButton.addEventListener('click', function () {
+    button.addEventListener('click', function () {
         removeTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
     })
 
-    return todoEl
+    return body
 }
 
 // Get the dom for list summary
