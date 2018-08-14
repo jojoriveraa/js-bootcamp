@@ -1,3 +1,6 @@
+
+console.log(uuidv4())
+
 // Read existing notes from localStorate
 const getSavedNotes = function () {
     const notesJSON = localStorage.getItem('notes')
@@ -10,23 +13,38 @@ const getSavedNotes = function () {
     }
 }
 
+// Remove a note from the list
+const removeNote = function (id) {
+    const noteIndex = notes.findIndex(function (note) {
+        return id === note.id
+    })
+    if (noteIndex > -1) {
+        notes.splice(noteIndex, 1)
+    }
+}
+
 // Generate the dom structure for a note
 const generateNoteDOM = function (note) {
-    const noteEl = document.createElement('div')
-    const textEl = document.createElement('span')
+    const body = document.createElement('div')
+    const text = document.createElement('span')
     const button = document.createElement('button')
-
+    
     button.textContent = 'x'
-    noteEl.appendChild(button)
+    body.appendChild(button)
+    button.addEventListener('click', function () {
+        removeNote(note.id)
+        saveNotes(notes)
+        renderNotes(notes, filters)
+    })
 
     if (note.title.length > 0) {
-        textEl.textContent = note.title
+        text.textContent = note.title
     } else {
-        textEl.textContent = `Unnamed note`
+        text.textContent = `Unnamed note`
     }
-    noteEl.appendChild(textEl)
+    body.appendChild(text)
 
-    return noteEl
+    return body
 }
 
 // Render application notes
