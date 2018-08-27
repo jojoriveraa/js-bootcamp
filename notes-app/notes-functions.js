@@ -1,8 +1,5 @@
-
-console.log(uuidv4())
-
 // Read existing notes from localStorate
-const getSavedNotes = function () {
+const getSavedNotes = () => {
     const notesJSON = localStorage.getItem('notes')
 
     if (notesJSON !== null) {
@@ -14,10 +11,8 @@ const getSavedNotes = function () {
 }
 
 // Remove a note from the list
-const removeNote = function (id) {
-    const noteIndex = notes.findIndex(function (note) {
-        return id === note.id
-    })
+const removeNote = id => {
+    const noteIndex = notes.findIndex(note => id === note.id)
     if (noteIndex > -1) {
         notes.splice(noteIndex, 1)
     }
@@ -26,22 +21,20 @@ const removeNote = function (id) {
 // Generate the dom structure for a note
 const generateNoteDOM = function (note) {
     const body = document.createElement('div')
-    const text = document.createElement('span')
+    const text = document.createElement('a')
     const button = document.createElement('button')
-    
+
     button.textContent = 'x'
     body.appendChild(button)
-    button.addEventListener('click', function () {
+
+    button.addEventListener('click', () => {
         removeNote(note.id)
         saveNotes(notes)
         renderNotes(notes, filters)
     })
 
-    if (note.title.length > 0) {
-        text.textContent = note.title
-    } else {
-        text.textContent = `Unnamed note`
-    }
+    text.textContent = (note.title.length > 0) ? note.title : `Unnamed note`
+    text.setAttribute('href', './edit.html')
     body.appendChild(text)
 
     return body
@@ -49,9 +42,8 @@ const generateNoteDOM = function (note) {
 
 // Render application notes
 const renderNotes = function (notes, filters) {
-    const filteredNotes = notes.filter(function (element) {
-        return element.title.toLowerCase().includes(filters.searchText.toLowerCase())
-    })
+    const textFilter = filters.searchText.toLowerCase();
+    const filteredNotes = notes.filter(note => note.title.toLowerCase().includes(textFilter))
 
     document.querySelector('#notes').innerHTML = ''
 
@@ -62,6 +54,10 @@ const renderNotes = function (notes, filters) {
 }
 
 // Save the notesto local storage
-const saveNotes = function (notes) {
-    localStorage.setItem('notes', JSON.stringify(notes))
-}
+const saveNotes = notes => localStorage.setItem('notes', JSON.stringify(notes))
+
+//Redirect to edit.html page
+const redirectToEdit = () => redirect('./edit.html')
+
+//Redirect to a defined page
+const redirect = to => location.assign(to)
